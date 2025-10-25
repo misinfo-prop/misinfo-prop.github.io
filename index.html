@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Unraveling Misinformation Propagation in LLM Reasoning">
+  <meta name="keywords" content="LLM, Misinformation, Reasoning, EMNLP 2025">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unraveling Misinformation Propagation in LLM Reasoning</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro|PT+Sans+Narrow:400,700"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/math_problem_example.svg"> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation"></nav>
+  <div class="side-navigation">
+  <ul>
+    <li><a href="#motivation">① Motivation</a></li>
+    <li><a href="#design">② Design</a></li>
+    <li><a href="#impact">③ Impact</a></li>
+    <li><a href="#instruction">④ Instruction</a></li>
+    <li><a href="#mitigation">⑤ Mitigation</a></li>
+    <li><a href="#BibTeX">BibTeX</a></li>
+  </ul>
+</div>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Unraveling Misinformation Propagation in LLM Reasoning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://yiyangfeng.me">Yiyang Feng</a><sup>1,2=</sup>,</span>
+            <span class="author-block"><a href="https://yichenzw.com/">Yichen Wang</a><sup>3=</sup>,</span>
+            <span class="author-block"><a href="https://cui-shaobo.github.io/">Shaobo Cui</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://people.epfl.ch/boi.faltings?lang=en">Boi Faltings</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://minalee-research.github.io/">Mina Lee</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="https://joezhouai.com/">Jiawei Zhou</a><sup>2</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>EPFL,</span>
+            <span class="author-block"><sup>2</sup>Stony Brook University,</span>
+            <span class="author-block"><sup>3</sup>University of Chicago</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2505.18555" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2505.18555" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://underline.io/events/502/posters/20963/poster/132507-unraveling-misinformation-propagation-in-llm-reasoning" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Wind-2375-like/misinfo-prop" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="motivation">
+<div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <div class="column is-full-width"> <div class="content-box">
+
+        <div class="has-text-centered section-title-container">
+            <span class="section-title-tag">① Motivation</span>
+        </div>
+
+        <div class="columns is-vcentered">
+            <div class="column is-half">
+            <blockquote class="intro-quote">
+                <p>
+                You're working on a problem, you get stuck,
+                and you turn to an AI assistant for help. You
+                type in your question, along with your "initial
+                thoughts" you <em>think</em> is right.
+                </p>
+                <p>
+                "But what if your thought is wrong?"
+                </p>
+                <p>
+                <em>
+                    (Right) An example where the user's input
+                    contains false information spread by users,
+                    i.e., misinformation.
+                </em>
+                </p>
+            </blockquote>
+            </div>
+
+            <div class="column is-half">
+            <img src="./static/images/math_problem_example.svg" alt="Example of misinformation in a math problem">
+            </div>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 2rem;">
+            <p>
+            We call such false information spread from users as <strong>misinformation</strong>. You'd probably expect LLMs to identify and correct your misinformation, and guide you to the correct answer.
+            </p>
+            <p>
+            According to our work accepted to EMNLP 2025 Findings, "<a href="https://arxiv.org/abs/2505.18555" >Unraveling Misinformation Propagation in LLM Reasoning</a>," that's not what happens at all. <em>Even when we add system prompts to explicitly instruct LLMs to identify and correct users' incorrect information, the LLM will follow what the users have been provided and lead them to wrong answers.</em>
+            </p>
+        </div>
+
+        <div class="content" style="margin-top: 2rem;">
+            <p><strong>Takeaways:</strong></p>
+            <ol style="margin-left: 2em; margin-top: -10px;"> <li><a href="#impact">LLMs follow misinformation by default.</a></li>
+            <li><a href="#instruction">LLMs fail to correct misinformation even when instructed to do so.</a></li>
+            <li><a href="#mitigation">Fine-tuning early factual corrections are most effective to mitigate misinformation propagation, but still doesn't fully recover performance.</a></li>
+            </ol>
+        </div>
+
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+
+<section class="section" id="design">
+<div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <div class="column is-full-width"> <div class="content-box">
+
+        <div class="has-text-centered section-title-container">
+            <span class="section-title-tag">② Systematic Analysis Design</span>
+        </div>
+
+        <div class="column is-centered">
+            <img src="./static/images/pipeline.svg" alt="">
+            <p class="has-text-centered image-caption">
+                <em>Analysis framework for misinformation propagation in LLM reasoning</em>
+            </p>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 2rem;">
+            <p>
+            <strong>Datasets:</strong> We start from math datasets, including MathQA, MATH, GSM8K, and MetaMath. We gather original questions and answers from these datasets. Then, we generate misinformation from correct relevant equations with criteria-based perturbation. We focus on math problems as misinformation is explicit and quantitatively measurable.
+            </p>
+            <p>
+            <strong>Experiments:</strong> We experiment on:
+            </p>
+            <ol style="margin-left: 2em; margin-top: -10px;"> 
+                <li><a href="#impact">Impact of misinformation.</a></li>
+                <li><a href="#instruction">Instruction to correct misinformation.</a></li>
+                <li><a href="#mitigation">Mitigation of misinformation propagation.</a></li>
+            </ol>
+            <strong>Models:</strong> We focus on both instruction and thinking models. For instruction models, we have Llama-3.2 (1B, 3B, 11B, and 90B), and Mixtral (8x7B, 8x22B). For thinking models, we have DeepSeek (R1, R1-Distilled Qwen-2.5-1.5B, R1-Distilled Qwen-2.5-14B) and Qwen-3 (235B-A22B-Thinking).
+            </p>
+            <p>
+            <strong>Evaluation:</strong> We evaluation both final answers and reasoning behaviors. For final answers, we focus on Knowledge Accuracy (K-Acc), which is the accuracy on questions that the model can solve. For the reasoning behaviors, we analyze whether models are able to follow misinformation and correct misinformation.
+            </p>
+        </div>
+
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+
+<section class="section" id="impact">
+<div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <div class="column is-full-width"> <div class="content-box">
+
+        <div class="has-text-centered section-title-container">
+            <span class="section-title-tag">③ Impact of Misinformation</span>
+        </div>
+
+        <div class="columns is-vcentered top-aligned-columns">
+            
+            <div class="column is-7"> 
+                
+                <div class="content">
+                    <p>
+                    <strong>Setup:</strong> We compare LLMs performance before and after injected with misinformation (the original and misinformed setting). We further compare the the misinformed performance with explicit instructions to follow user's misinformation (Inst-Fllw).
+                    </p>
+                    <p>
+                    <strong>Results:</strong> The performance of misinformed performance is similar with the Inst-Fllw performance, indicating that <em>LLMs follow misinformation by default.</em>
+                    </p>
+                </div>
+
+                <div class="scrollable-container">
+                    <button class="scroll-arrow scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="table-wrapper is-horizontally-scrollable">
+                        <table class="table is-bordered is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Llama-3.2-1B</th>
+                                    <th>Llama-3.2-3B</th>
+                                    <th>Llama-3.2-11B</th>
+                                    <th>Llama-3.2-90B</th>
+                                    <th>Qwen-2-72B</th>
+                                    <th>Mixtral-8×7B</th>
+                                    <th>Mixtral-8×22B</th>
+                                    <th>GPT-4o-mini</th>
+                                    <th>DeepSeek-R1-Distilled-Qwen-2.5-1.5B</th>
+                                    <th>DeepSeek-R1-Distilled-Qwen-2.5-14B</th>
+                                    <th>DeepSeek-R1-0528</th>
+                                    <th>Qwen-3-235B-A22B-2507-FP8</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Original</td>
+                                    <td>71.73</td>
+                                    <td>88.25</td>
+                                    <td>88.43</td>
+                                    <td>96.43</td>
+                                    <td>95.22</td>
+                                    <td>76.92</td>
+                                    <td>88.20</td>
+                                    <td>98.03</td>
+                                    <td>89.30</td>
+                                    <td>97.59</td>
+                                    <td>90.20</td>
+                                    <td>98.22</td>
+                                </tr>
+                                <tr>
+                                    <td>Misinformed</td>
+                                    <td>40.74</td>
+                                    <td>38.41</td>
+                                    <td>38.30</td>
+                                    <td>56.69</td>
+                                    <td>73.46</td>
+                                    <td>26.38</td>
+                                    <td>55.84</td>
+                                    <td>85.64</td>
+                                    <td>74.47</td>
+                                    <td>91.13</td>
+                                    <td>33.57</td>
+                                    <td>84.63</td>
+                                </tr>
+                                <tr>
+                                    <td>Inst-Fllw</td>
+                                    <td>40.96</td>
+                                    <td>31.45</td>
+                                    <td>31.23</td>
+                                    <td>53.91</td>
+                                    <td>69.57</td>
+                                    <td>32.64</td>
+                                    <td>56.88</td>
+                                    <td>82.49</td>
+                                    <td>76.59</td>
+                                    <td>86.68</td>
+                                    <td>33.45</td>
+                                    <td>74.68</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="scroll-arrow scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <p class="has-text-centered image-caption">
+                    <em>The performance of misinformed performance is similar with Inst-Fllw.</em>
+                </p>
+            </div>
+
+            <div class="column is-5">
+                <img src="./static/images/impact.svg" alt="Experiment setup for Impact of Misinformation">
+                
+                <p class="has-text-centered image-caption">
+                    <em>Experiment setup for Impact of Misinformation</em>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+</section>
+
+<section class="section" id="instruction">
+<div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <div class="column is-full-width"> <div class="content-box">
+
+        <div class="has-text-centered section-title-container">
+            <span class="section-title-tag">④ Instruction to Correct Misinformation</span>
+        </div>
+
+        <div class="columns is-vcentered top-aligned-columns">
+            
+            <div class="column is-7"> 
+                
+                <div class="content">
+                    <p>
+                    <strong>Setup:</strong> We also compare the the misinformed performance with explicit instructions (Inst-Corr) to correct user's misinformation with the original and misinformed performance.
+                    </p>
+                    <p>
+                    <strong>Results:</strong> The performance of Inst-Corr misinformed performance is slightly better than misinformed performance for some models, but there is still a huge gap from the original performance. 
+                    </p>
+                    <p>By inspecting the reasoning behaviors, we find that LLMs still follow some of the misinformation and fail to correct the other misinformation correctly. 
+                    </p>
+                    <p>Thus, we show that <em>even when LLMs are instructed to correct misinformation, they still fail to do so on all questions.</em>
+                    </p>
+                </div>
+
+                <div style="margin-top: 4rem;"></div>
+
+                <div class="scrollable-container">
+                    <button class="scroll-arrow scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="table-wrapper is-horizontally-scrollable">
+                        <table class="table is-bordered is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Llama-3.2-1B</th>
+                                    <th>Llama-3.2-3B</th>
+                                    <th>Llama-3.2-11B</th>
+                                    <th>Llama-3.2-90B</th>
+                                    <th>Qwen-2-72B</th>
+                                    <th>Mixtral-8×7B</th>
+                                    <th>Mixtral-8×22B</th>
+                                    <th>GPT-4o-mini</th>
+                                    <th>DeepSeek-R1-Distilled-Qwen-2.5-1.5B</th>
+                                    <th>DeepSeek-R1-Distilled-Qwen-2.5-14B</th>
+                                    <th>DeepSeek-R1-0528</th>
+                                    <th>Qwen-3-235B-A22B-2507-FP8</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Original</td>
+                                    <td>71.73</td>
+                                    <td>88.25</td>
+                                    <td>88.43</td>
+                                    <td>96.43</td>
+                                    <td>95.22</td>
+                                    <td>76.92</td>
+                                    <td>88.20</td>
+                                    <td>98.03</td>
+                                    <td>89.30</td>
+                                    <td>97.59</td>
+                                    <td>90.20</td>
+                                    <td>98.22</td>
+                                </tr>
+                                <tr>
+                                    <td>Misinformed</td>
+                                    <td>40.74</td>
+                                    <td>38.41</td>
+                                    <td>38.30</td>
+                                    <td>56.69</td>
+                                    <td>73.46</td>
+                                    <td>26.38</td>
+                                    <td>55.84</td>
+                                    <td>85.64</td>
+                                    <td>74.47</td>
+                                    <td>91.13</td>
+                                    <td>33.57</td>
+                                    <td>84.63</td>
+                                </tr>
+                                <tr>
+                                    <td>Inst-Corr</td>
+                                    <td>26.80</td>
+                                    <td>38.67</td>
+                                    <td>44.11</td>
+                                    <td>69.06</td>
+                                    <td>74.93</td>
+                                    <td>21.39</td>
+                                    <td>54.98</td>
+                                    <td>88.21</td>
+                                    <td>71.47</td>
+                                    <td>93.39</td>
+                                    <td>77.13</td>
+                                    <td>93.70</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="scroll-arrow scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <p class="has-text-centered image-caption">
+                    <em>The performance of misinformed performance is slightly better than Inst-Corr for some models, but the improvement is limited.</em>
+                </p>
+            </div>
+
+            <div class="column is-5">
+                <img src="./static/images/instruction.svg" alt="Experiment setup for Instruction to Correct Misinformation">
+                
+                <p class="has-text-centered image-caption">
+                    <em>Experiment setup for Instruction to Correct Misinformation</em>
+                </p>
+
+                <div style="margin-top: 2rem;"></div>
+
+                <div class="scrollable-container figure-scroller">
+                    <button class="scroll-arrow scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="table-wrapper is-horizontally-scrollable figure-table-wrapper">
+                        
+                        <div class="figure-row">
+
+                            <div class="figure-item">
+                                <img src="./static/images/sankey.png" alt="Misinformed sankey diagram">
+                                <p class="has-text-centered image-caption"><em>Misinformed</em></p>
+                            </div>
+
+                            <div class="figure-item">
+                                <img src="./static/images/sankey_prompt.png" alt="Inst-Corr sankey diagram">
+                                <p class="has-text-centered image-caption"><em>Inst-Corr</em></p>
+                            </div>
+
+                            <div class="figure-item">
+                                <img src="./static/images/sankey_perturbed.png" alt="Misinformed (perturb) sankey diagram">
+                                <p class="has-text-centered image-caption"><em>Misinformed</em></p>
+                            </div>
+
+                            <div class="figure-item">
+                                <img src="./static/images/sankey_perturbed_prompt.png" alt="Inst-Corr (perturb) sankey diagram">
+                                <p class="has-text-centered image-caption"><em>Inst-Corr</em></p>
+                            </div>
+
+                        </div> </div> <button class="scroll-arrow scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <p class="has-text-centered image-caption">
+                    <em>Even when instructed to correct misinformation, LLMs still follow some of the misinformation and fail to correct the other misinformation correctly.</em>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+</section>
+
+<section class="section" id="mitigation">
+<div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <div class="column is-full-width"> <div class="content-box">
+
+        <div class="has-text-centered section-title-container">
+            <span class="section-title-tag">⑤ Mitigation of Misinformation Propagation</span>
+        </div>
+
+        <div class="columns is-vcentered top-aligned-columns">
+            
+            <div class="column is-7"> 
+                
+                <div class="content">
+                    <p>
+                    <strong>Setup:</strong> Finally, we explore effective strategies to mitigate misinformation. We control correction behaviors and fine-tune models with factual corrections.
+                    </p>
+                    <p>
+                    <strong>Results:</strong> First, the performance of factual corrections (F-Corr) at early steps (0%-10%) has the best performance in the misinformed setting, indicating that early factual corrections are most effective to mitigate misinformation propagation. Then, we fine-tune models with factual corrections at the first step and observe substantial performance increase, but there is still a gap from the original performance. Thus, <em>fine-tuning with early factual corrections are most effective to mitigate misinformation propagation, but still doesn't fully recover performance.</em>
+                    </p>
+                </div>
+            </div>
+
+            <div class="column is-5">
+                <div style="margin-top: 2rem;"></div>
+                
+                <img src="./static/images/mitigation.svg" alt="Experiment setup for Mitigation of Misinformation Propagation">
+                
+                <p class="has-text-centered image-caption">
+                    <em>Experiment setup for Mitigation of Misinformation Propagation</em>
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem;"></div>
+
+        <img src="./static/images/pathway_wide.svg" alt="">
+
+        <p class="has-text-centered image-caption">
+            <em>Early factual corrections are most effective to mitigate misinformation propagation.</em>
+        </p>
+
+        <div class="columns is-vcentered top-aligned-columns">
+            <div class="column is-6"> 
+                <div class="scrollable-container">
+                    <button class="scroll-arrow scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="table-wrapper is-horizontally-scrollable">
+                        <table class="table is-bordered is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Original</th>
+                                    <th>Misinformed</th>
+                                    <th>Gap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Base Model</td>
+                                    <td>98.03</td>
+                                    <td>85.64</td>
+                                    <td>↓12.64%</td>
+                                </tr>
+                                <tr>
+                                    <td>+ Inst-Corr</td>
+                                    <td>96.13</td>
+                                    <td>88.21</td>
+                                    <td>↓8.24%</td>
+                                </tr>
+                                <tr>
+                                    <td>+ FT-Corr</td>
+                                    <td>95.31</td>
+                                    <td>95.11</td>
+                                    <td>↓2.09%</td>
+                                </tr>
+                                <tr>
+                                    <td>+ Inst-Corr<br>+ FT-Corr</td>
+                                    <td>95.71</td>
+                                    <td>95.68</td>
+                                    <td>↓0.03%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="scroll-arrow scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="column is-6"> 
+                <div class="scrollable-container">
+                    <button class="scroll-arrow scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="table-wrapper is-horizontally-scrollable">
+                        <table class="table is-bordered is-striped is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>Base Model</th>
+                                    <th>GPT-4o-mini</th>
+                                    <th>Llama-3.2-3B</th>
+                                    <th>R1-Distilled-Qwen-2.5-1.5B</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>+ Misinformed<br>+ Inst-Corr</td>
+                                    <td>88.21</td>
+                                    <td>38.41</td>
+                                    <td>71.47</td>
+                                </tr>
+                                <tr>
+                                    <td>+ Misinformed<br>+ Inst-Corr<br>+ FT-Corr</td>
+                                    <td>95.68</td>
+                                    <td>44.11</td>
+                                    <td>75.64</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="scroll-arrow scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <p class="has-text-centered image-caption">
+            <em>Fine-tuning with early factual corrections mitigates misinformation propagation, but still leaves room for improvement.</em>
+        </p>
+    </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop"> <div class="columns is-centered">
+      <div class="column is-full-width"> <div class="content-box">
+        <div class="has-text-centered section-title-container">
+            <span class="section-title-tag">BibTeX</span>
+        </div>
+        <div class="bibtex-wrapper">
+            
+            <button class="button is-small copy-button" id="copy-bib-button" aria-label="Copy BibTeX to clipboard">
+                <span class="icon">
+                    <i class="far fa-copy"></i>
+                </span>
+            </button>
+            
+            <pre id="bibtex-content"><code>@misc{feng2025unravelingmisinformationpropagationllm,
+    title={Unraveling Misinformation Propagation in LLM Reasoning}, 
+    author={Yiyang Feng and Yichen Wang and Shaobo Cui and Boi Faltings and Mina Lee and Jiawei Zhou},
+    year={2025},
+    eprint={2505.18555},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL},
+    url={https://arxiv.org/abs/2505.18555}, 
+}</code></pre>
+</div>
+        </div>
+      </div>
+    </div>
+  </div> </section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2505.18555">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/Wind-2375-like/misinfo-prop" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width has-text-centered">
+        <div class="content">
+          <p>
+            We adapted from the wonderful website template from the paper <a
+              href="https://github.com/nerfies/nerfies.github.io">"Nerfies: Deformable Neural Radiance Fields"</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const copyButton = document.getElementById('copy-bib-button');
+  const bibtexContent = document.getElementById('bibtex-content');
+  
+  if (copyButton && bibtexContent) {
+    copyButton.addEventListener('click', () => {
+      const textToCopy = bibtexContent.querySelector('code').innerText;
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const icon = copyButton.querySelector('.icon i');
+        copyButton.classList.add('is-success'); 
+        icon.classList.remove('fa-copy');
+        icon.classList.add('fa-check'); 
+        
+        setTimeout(() => {
+          copyButton.classList.remove('is-success');
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-copy');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy BibTeX: ', err);
+      });
+    });
+  }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // 1. Get all links and sections
+  const navLinks = document.querySelectorAll('.side-navigation ul li a');
+  const sections = document.querySelectorAll('section[id]');
+
+  if (navLinks.length === 0 || sections.length === 0) {
+    return;
+  }
+
+  // 2. Create an observer
+  // This is much more efficient than listening to every scroll event
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // When a section is in view
+        const id = entry.target.getAttribute('id');
+        const activeLink = document.querySelector(`.side-navigation ul li a[href="#${id}"]`);
+
+        // Remove 'is-active' from all links
+        navLinks.forEach(link => link.classList.remove('is-active'));
+
+        // Add 'is-active' to the current link
+        if (activeLink) {
+          activeLink.classList.add('is-active');
+        }
+      }
+    });
+  }, {
+    // This triggers when the section is in the vertical center of the screen
+    rootMargin: '-50% 0px -50% 0px',
+    threshold: 0
+  });
+
+  // 3. Tell the observer to watch all your sections
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+});
+</script>
+
+</body>
+</html>

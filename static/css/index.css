@@ -1,0 +1,448 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-title {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}
+
+.content-box {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 2.5rem;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    padding-top: 4.5rem;
+}
+
+.section-title-tag {
+  display: inline-block;
+  background-color: #f8f8f8;
+  border: 5px solid white;
+  border-radius: 12px;
+  padding: 0.5rem 1.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: 'PT Sans Narrow', 'Google Sans', sans-serif;
+  position: relative;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.section-title-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    margin: 0;
+}
+
+.intro-quote {
+    border-left: 5px solid #dbdbdb;
+    padding-left: 1.25em;
+    margin-left: 0;
+}
+.intro-quote p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #363636;
+    margin-bottom: 1.5em !important;
+}
+.intro-quote em {
+    font-size: 1rem;
+    color: #555;
+}
+
+.top-aligned-columns.is-vcentered {
+    align-items: flex-start;
+}
+
+.image-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.columns.is-centered > .column.is-full-width,
+.columns.is-vcentered > .column.is-7 {
+    min-width: 0;
+}
+
+.scrollable-container {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.scrollable-container .table-wrapper,
+.scrollable-container .table-wrapper.is-horizontally-scrollable {
+  overflow-x: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollable-container .table-wrapper .table,
+.scrollable-container .table-wrapper.is-horizontally-scrollable .table {
+  table-layout: fixed !important;
+  width: auto !important;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+#impact .scrollable-container .table-wrapper .table th:first-child,
+#impact .scrollable-container .table-wrapper.is-horizontally-scrollable .table th:first-child,
+#impact .scrollable-container .table-wrapper .table td:first-child,
+#impact .scrollable-container .table-wrapper.is-horizontally-scrollable .table td:first-child,
+#instruction .scrollable-container .table-wrapper .table th:first-child,
+#instruction .scrollable-container .table-wrapper.is-horizontally-scrollable .table th:first-child,
+#instruction .scrollable-container .table-wrapper .table td:first-child,
+#instruction .scrollable-container .table-wrapper.is-horizontally-scrollable .table td:first-child {
+  width: 55px !important;
+  min-width: 55px !important;
+}
+
+#impact .scrollable-container .table-wrapper .table th:not(:first-child),
+#impact .scrollable-container .table-wrapper.is-horizontally-scrollable .table th:not(:first-child),
+#impact .scrollable-container .table-wrapper .table td:not(:first-child),
+#impact .scrollable-container .table-wrapper.is-horizontally-scrollable .table td:not(:first-child),
+#instruction .scrollable-container .table-wrapper .table th:not(:first-child),
+#instruction .scrollable-container .table-wrapper.is-horizontally-scrollable .table th:not(:first-child),
+#instruction .scrollable-container .table-wrapper .table td:not(:first-child),
+#instruction .scrollable-container .table-wrapper.is-horizontally-scrollable .table td:not(:first-child) {
+  width: 100px !important;
+  min-width: 100px !important;
+  word-break: break-word;
+}
+
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #dbdbdb;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0;
+    padding: 0;
+}
+
+.scroll-arrow:hover {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.scrollable-container:hover .scroll-arrow {
+    opacity: 1;
+}
+
+.scroll-arrow.is-disabled {
+    opacity: 0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.scroll-left {
+    left: -1.25rem;
+}
+
+.scroll-right {
+    right: -1.25rem;
+}
+
+.figure-scroller .table-wrapper {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.figure-row {
+  display: flex;
+  flex-wrap: nowrap;
+  width: auto;
+}
+
+.figure-item {
+  flex-shrink: 0;
+  width: 163px;
+  margin: 0 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.figure-item img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #dbdbdb;
+}
+
+.figure-item .image-caption {
+  margin-top: auto !important;
+}
+
+#mitigation .scrollable-container .table-wrapper .table th:first-child,
+#mitigation .scrollable-container .table-wrapper .table td:first-child {
+  width: 140px !important;
+  min-width: 140px !important;
+  word-break: break-word;
+}
+
+#mitigation .scrollable-container .table-wrapper .table th:not(:first-child),
+#mitigation .scrollable-container .table-wrapper .table td:not(:first-child) {
+  width: 150px !important;
+  min-width: 150px !important;
+  word-break: break-word;
+}
+
+.bibtex-wrapper {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.bibtex-wrapper pre {
+  background-color: #f8f8f8 !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow-x: auto !important;
+
+  padding-top: 3rem;
+  padding-right: 3rem;
+}
+
+.bibtex-wrapper pre code {
+  background-color: transparent !important;
+  padding: 0;
+  font-family: 'Menlo', 'Consolas', monospace;
+}
+
+.copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.1);
+  color: #363636;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.copy-button:hover {
+  background-color: rgba(0,0,0,0.15);
+}
+
+.copy-button.is-success {
+  background-color: #48c78e !important;
+  color: #fff !important;
+}
+
+/* === Right Side Navigation === */
+
+.side-navigation {
+  /* 1. Positioning */
+  display: none; /* Hide on mobile by default */
+  position: fixed;
+  top: 50%; /* Center vertically */
+  right: 20px; /* Stick to the right */
+  transform: translateY(-50%); /* Adjust vertical center */
+  z-index: 1000; /* Stay on top */
+
+  /* 2. Styling */
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #dbdbdb;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+}
+
+/* 3. Show only on wide screens (now desktop and wider) */
+@media (min-width: 1216px) {
+  .side-navigation {
+    display: block;
+  }
+}
+
+/* 4. Link Styling */
+.side-navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.side-navigation ul li {
+  margin-bottom: 0.5rem;
+}
+.side-navigation ul li:last-child {
+  margin-bottom: 0;
+}
+
+.side-navigation ul li a {
+  display: block;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.side-navigation ul li a:hover {
+  background-color: #e0e0e0;
+  color: #111;
+}
+
+/* 5. "Active" Link Style (for JavaScript) */
+.side-navigation ul li a.is-active {
+  background-color: #dbdbdb;
+  font-weight: bold;
+  color: #000;
+}
